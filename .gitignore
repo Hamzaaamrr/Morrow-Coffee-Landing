@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+.django_secret_key
+/media/
+/staticfiles/
+.agents
+.claude
+.codex
+.cursor
+.impeccable
+PRODUCT.md

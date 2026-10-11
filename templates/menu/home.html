@@ -1,0 +1,264 @@
+﻿{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5eee4" />
+    <meta
+      name="description"
+      content="Find Morrow Coffee, explore the menu, and follow along."
+    />
+    <title>Morrow Coffee, Find your way here</title>
+    <script>document.documentElement.classList.add("js-enabled");</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'coffee/styles.css' %}" />
+    <script src="{% static 'coffee/script.js' %}" defer></script>
+  </head>
+  <body>
+    <div class="page-loader" id="page-loader" role="status" aria-live="polite" aria-atomic="true">
+      <div class="loader-brand" aria-hidden="true">
+        <span class="loader-wordmark">Morrow <span>Coffee</span></span>
+        <span class="loader-cup-stage">
+          <svg class="loader-steam" viewBox="0 0 72 28" fill="none">
+            <path d="M22 25c-4-5 5-7 1-13-1-2-1-4 1-7" />
+            <path d="M36 25c-4-5 5-7 1-13-1-2-1-4 1-7" />
+            <path d="M50 25c-4-5 5-7 1-13-1-2-1-4 1-7" />
+          </svg>
+          <svg class="loader-cup" viewBox="0 0 96 80" fill="none" aria-hidden="true">
+            <g class="loader-cup-art">
+              <path d="M28 24h35l-4 35c-.5 5-4.8 9-9.8 9H41.8c-5 0-9.3-4-9.8-9L28 24Z" fill="#D6AD7E" />
+              <path d="M62 30h7a9 9 0 0 1 0 18h-8" stroke="#D6AD7E" stroke-width="5" stroke-linecap="round" />
+              <ellipse cx="45.5" cy="24" rx="17.5" ry="4.5" fill="#F5EEE4" />
+              <ellipse cx="45.5" cy="24" rx="12.5" ry="2.5" fill="#77553F" />
+              <path d="M34 48h23l-1 8H35l-1-8Z" fill="#77553F" />
+              <path d="M44 51.5c1.4-2.4 3.6-2.4 5 0-1.4 2.4-3.6 2.4-5 0Z" fill="#F5EEE4" />
+              <path d="M34 71h23" stroke="#D6AD7E" stroke-width="3" stroke-linecap="round" />
+            </g>
+          </svg>
+        </span>
+        <span class="loader-message">A moment while we get ready.</span>
+      </div>
+    </div>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="wordmark" href="#top" aria-label="Morrow Coffee home">
+          <span class="wordmark-mark" aria-hidden="true">M</span>
+          <span>Morrow <span class="wordmark-light">Coffee</span></span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+        >
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+          <a href="#menu">Menu</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#story">Our story</a>
+          <a href="#visit">Visit us</a>
+          <a href="#social">Instagram</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-inner page-width">
+          <div class="hero-copy">
+            <h1 id="hero-title">A little room<br />for <span>your day.</span></h1>
+            <p>Find your way to Morrow, take a look at the menu, and follow along.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#visit">
+                Get directions
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M4.25 10h11.5M10.5 4.75 15.75 10l-5.25 5.25" />
+                </svg>
+              </a>
+              <a class="button button-outline-light" href="#menu">View menu</a>
+            </div>
+          </div>
+
+          <figure class="hero-visual photo-frame">
+            <img src="{% static 'coffee/photos/latte-pour.jpg' %}" alt="Temporary reference photo of a barista pouring latte art" fetchpriority="high" decoding="async" />
+            <figcaption class="photo-reference-badge">Photo reference</figcaption>
+          </figure>
+        </div>
+        <div class="hero-footer page-width" aria-hidden="true">
+          <span>Good to see you</span>
+          <span class="hero-footer-rule"></span>
+          <span>Scroll to explore</span>
+        </div>
+      </section>
+
+      <section class="menu-section section-pad" id="menu" aria-labelledby="menu-title">
+        <div class="page-width">
+          <div class="section-heading section-heading-row">
+            <div>
+              <h2 id="menu-title">The menu</h2>
+              <p>Something to sip, something to stay for.</p>
+            </div>
+          </div>
+
+          <div class="menu-grid">
+            {% for category in categories %}
+              <article class="menu-list" data-scroll-reveal="lift">
+                <div class="menu-list-heading">
+                  <h3>{{ category.name }}</h3>
+                  {% with item_count=category.ordered_items|length %}
+                    <span class="menu-item-count">{{ item_count }} {% if item_count == 1 %}item{% else %}items{% endif %}</span>
+                  {% endwith %}
+                </div>
+                {% if category.ordered_items %}
+                  <ul>
+                    {% for item in category.ordered_items %}
+                      <li class="menu-item">
+                        <span class="menu-item-copy">
+                          <span class="menu-item-name">{{ item.name }}</span>
+                          {% if item.description %}<small>{{ item.description }}</small>{% endif %}
+                        </span>
+                        <span class="menu-item-price">{{ item.price|floatformat:2 }}</span>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p class="menu-empty-category">More menu items coming soon.</p>
+                {% endif %}
+              </article>
+            {% empty %}
+              <p class="menu-empty-state">{% if menu_error %}The menu is temporarily unavailable. Please try again later.{% else %}Our menu is being prepared. Please check back soon.{% endif %}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-section section-pad" id="gallery" aria-labelledby="gallery-title">
+        <div class="page-width">
+          <div class="section-heading section-heading-row">
+            <div>
+              <h2 id="gallery-title">A look around</h2>
+              <p>Temporary café photos to preview the look. Morrow’s own photos can go here later.</p>
+            </div>
+            <span class="section-note">Visual references</span>
+          </div>
+          <div class="gallery-grid">
+            <figure class="gallery-photo" data-scroll-reveal="photo">
+              <img src="{% static 'coffee/photos/cafe-interior.jpg' %}" alt="Temporary reference photo of a sunlit café interior" loading="lazy" decoding="async" />
+              <figcaption class="photo-reference-badge">Reference</figcaption>
+            </figure>
+            <figure class="gallery-photo" data-scroll-reveal="photo">
+              <img src="{% static 'coffee/photos/coffee-cups.jpg' %}" alt="Temporary reference photo of two coffees topped with latte art" loading="lazy" decoding="async" />
+              <figcaption class="photo-reference-badge">Reference</figcaption>
+            </figure>
+            <figure class="gallery-photo" data-scroll-reveal="photo">
+              <img src="{% static 'coffee/photos/coffee-pastry.jpg' %}" alt="Temporary reference photo of coffee and a croissant at a café table" loading="lazy" decoding="async" />
+              <figcaption class="photo-reference-badge">Reference</figcaption>
+            </figure>
+            <figure class="gallery-photo" data-scroll-reveal="photo">
+              <img src="{% static 'coffee/photos/coffee-beans.jpg' %}" alt="Temporary reference photo of roasted coffee beans" loading="lazy" decoding="async" />
+              <figcaption class="photo-reference-badge">Reference</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section section-pad" id="story" aria-labelledby="story-title">
+        <div class="story-inner page-width" data-scroll-reveal="lift">
+          <figure class="story-photo photo-frame">
+            <img src="{% static 'coffee/photos/cafe-interior.jpg' %}" alt="Temporary reference photo of a café dining area" loading="lazy" decoding="async" />
+            <figcaption class="photo-reference-badge">Photo reference</figcaption>
+          </figure>
+          <div class="story-copy">
+            <h2 id="story-title">Our story</h2>
+            <p class="story-lede">The people and place behind Morrow.</p>
+            <p class="story-placeholder">Add a little about the cafÃ©, the people behind it, and what you hope visitors will find here.</p>
+            <a class="text-link" href="#visit">
+              Come by when you're nearby
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M4.25 10h11.5M10.5 4.75 15.75 10l-5.25 5.25" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="visit-section section-pad" id="visit" aria-labelledby="visit-title">
+        <div class="page-width">
+          <div class="section-heading section-heading-row visit-heading">
+            <div>
+              <h2 id="visit-title">Come find us</h2>
+              <p>We'd love to see you.</p>
+            </div>
+            <span class="section-note">Visit Morrow</span>
+          </div>
+
+          <div class="visit-grid" data-scroll-reveal="lift">
+            <div class="map-placeholder" role="img" aria-label="Map placeholder. Add the cafÃ© address for precise directions.">
+              <svg class="map-pin" viewBox="0 0 48 56" aria-hidden="true">
+                <path d="M24 52s17-16.1 17-31A17 17 0 1 0 7 21c0 14.9 17 31 17 31Z" />
+                <circle cx="24" cy="21" r="6.25" />
+              </svg>
+              <p>Map preview</p>
+              <span>Add the cafÃ©'s address to show the way.</span>
+            </div>
+
+            <div class="visit-details">
+              <div class="detail-block">
+                <h3>Address</h3>
+                <p>Add address</p>
+              </div>
+              <div class="detail-block">
+                <h3>Opening hours</h3>
+                <p>Add hours</p>
+              </div>
+              <div class="map-links" aria-label="Search for Morrow Coffee in a map app">
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=Morrow+Coffee" target="_blank" rel="noreferrer">Google Maps</a>
+                <a href="https://maps.apple.com/?q=Morrow%20Coffee" target="_blank" rel="noreferrer">Apple Maps</a>
+                <a href="https://waze.com/ul?q=Morrow%20Coffee" target="_blank" rel="noreferrer">Waze</a>
+              </div>
+              <p class="map-link-note">Map apps will search for Morrow Coffee by name until an exact address is added.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="social">
+      <div class="footer-inner page-width">
+        <a class="wordmark footer-wordmark" href="#top">
+          <span class="wordmark-mark" aria-hidden="true">M</span>
+          <span>Morrow <span class="wordmark-light">Coffee</span></span>
+        </a>
+        <p class="footer-note">A little room for your day.</p>
+        <div class="social-placeholder" aria-label="Instagram profile link placeholder">
+          <span>Instagram</span>
+          <small>Profile link coming soon</small>
+        </div>
+        <a class="back-to-top" href="#top" aria-label="Back to top">
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M10 15.75V4.25M4.75 9.5 10 4.25l5.25 5.25" />
+          </svg>
+        </a>
+      </div>
+      <div class="footer-bottom page-width">
+        <span>Â© <span id="current-year">2026</span> Morrow Coffee</span>
+        <span>Made for the moments in between.</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
